@@ -8,6 +8,8 @@ var TABLE = 'token';
 module.exports = {
   tags: ['api', 'user'],
 
+  auth: 'jwt',
+
   validate: {
     query: Joi.object().keys(Token.schemas.public)
   },

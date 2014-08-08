@@ -9,6 +9,8 @@ var TABLE = 'token';
 module.exports = {
   tags: ['api', 'user'],
 
+  auth: 'jwt',
+
   validate: {
     params: {
       id: Token.schemas.all.id
