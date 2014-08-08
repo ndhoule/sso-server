@@ -26,7 +26,7 @@ TODO: Link to example applications
 ## Tasks
 
 Task Name                         | Description
---                                | --
+---                               | ---
 `gulp`                            | (default): Run server in watch mode, reloading on file changes.
 `gulp watch`                      | Watch files and re-run tests on change.
 `gulp migrate:latest`             | Run latest database migrations.
