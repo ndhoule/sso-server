@@ -4,9 +4,9 @@ var Promise = require('bluebird');
 var R = require('ramda');
 var _ = require('lodash');
 var bcrypt = Promise.promisifyAll(require('bcrypt'));
-var user = require('../../models/user');
+var User = require('../../models').user;
 
-var table = require('path').basename(__dirname);
+var TABLE = require('path').basename(__dirname);
 
 // TODO: What happens when the user omits either the username or password? Does this break?
 // TODO: Move into a library file
@@ -38,10 +38,10 @@ module.exports = {
     },
 
     payload: {
-      email: user.schemas.raw.email.required(),
-      name: user.schemas.raw.name.required(),
-      password: user.schemas.raw.password.required(),
-      username: user.schemas.raw.username.required()
+      email: User.schemas.all.email.required(),
+      name: User.schemas.all.name.required(),
+      password: User.schemas.all.password.required(),
+      username: User.schemas.all.username.required()
     }
   },
 
@@ -50,7 +50,7 @@ module.exports = {
       .then(function(hashedPassword) {
         var user = _.defaults({ password: hashedPassword }, request.payload);
 
-        request.server.knex(table)
+        request.server.knex(TABLE)
           .insert(user)
           .returning('id')
           .then(R.first)

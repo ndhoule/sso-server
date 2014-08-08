@@ -2,35 +2,26 @@
 
 var Hapi = require('hapi');
 var Joi = require('joi');
-var R = require('ramda');
-var token = require('../../models/token');
+var Token = require('../../models').token;
 
-var table = 'token';
-
-var apiOptionsSchema = {
-  fields: Joi.array()
-    .includes(Joi.string().valid(token.publicColumns))
-    .default(token.publicColumns),
-  pretty: Joi.boolean().default(false)
-};
+var TABLE = 'token';
 
 module.exports = {
   tags: ['api', 'user'],
 
   validate: {
-    params: { id: token.schemas.raw.id },
-
-    // In addition to any public user fields, validate API options
-    query: Joi.object().keys(apiOptionsSchema).concat(token.schemas.public)
+    params: {
+      id: Token.schemas.all.id
+    }
   },
 
   response: {
-    schema: token.schemas.public
+    schema: Joi.object().keys(Token.schemas.public)
   },
 
   handler: function tokenFindOne(request, reply) {
-    request.server.knex(table)
-      .select(R.uniq(request.query.fields))
+    request.server.knex(TABLE)
+      .select(Token.columns.public)
       .where('id', request.params.id)
       .first()
       .then(function(record) {

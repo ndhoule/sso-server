@@ -1,25 +1,27 @@
 'use strict';
 
 var Hapi = require('hapi');
-var Joi = require('joi');
+var Token = require('../../models').token;
 
-var table = 'token';
+var TABLE = 'token';
 
 module.exports = {
   tags: ['api', 'token'],
 
   validate: {
     params: {
-      id: Joi.number().integer().min(1).required()
-    },
-    query: {
-      pretty: Joi.boolean().default(false)
+      id: Token.schemas.all.id.required()
     }
   },
 
+  // TODO
+  //response: {
+    //schema: function() {}
+  //},
+
   // TODO: Return deleted record to user
   handler: function tokenDelete(request, reply) {
-    request.server.knex(table)
+    request.server.knex(TABLE)
       .where('id', request.params.id)
       .delete()
       .then(function(numDeleted) {

@@ -2,7 +2,7 @@
 
 var Joi = require('joi');
 
-var table = 'user';
+var TABLE = 'user';
 
 module.exports = {
   tags: ['api', 'user'],
@@ -12,16 +12,13 @@ module.exports = {
   validate: {
     params: {
       id: Joi.number().integer().min(1).required()
-    },
-    query: {
-      pretty: Joi.boolean().default(false)
     }
   },
 
   // TODO: Return deleted record to user
   // TODO: Cascade deletion of tokens
   handler: function userDelete(request, reply) {
-    request.server.knex(table)
+    request.server.knex(TABLE)
       .where('id', request.params.id)
       .delete()
       .then(function(deletedCount) {

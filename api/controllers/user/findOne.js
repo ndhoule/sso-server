@@ -2,15 +2,9 @@
 
 var Hapi = require('hapi');
 var Joi = require('joi');
-var R = require('ramda');
-var user = require('../../models/user');
+var User = require('../../models').user;
 
-var table = 'user';
-
-var apiOptionsSchema = {
-  fields: Joi.array().includes(Joi.string().valid(user.publicColumns)).default(user.publicColumns),
-  pretty: Joi.boolean().default(false)
-};
+var TABLE = 'user';
 
 module.exports = {
   tags: ['api', 'user'],
@@ -18,19 +12,18 @@ module.exports = {
   auth: 'jwt',
 
   validate: {
-    params: { id: user.schemas.raw.id },
-
-    // In addition to any public user fields, validate API options
-    query: user.schemas.public.concat(Joi.object().keys(apiOptionsSchema))
+    params: {
+      id: User.schemas.all.id
+    }
   },
 
   response: {
-    schema: user.schemas.public
+    schema: Joi.object().keys(User.schemas.public)
   },
 
   handler: function userFind(request, reply) {
-    request.server.knex(table)
-      .select(R.uniq(request.query.fields))
+    request.server.knex(TABLE)
+      .select(User.fields.public)
       .where('id', request.params.id)
       .first()
       .then(function(record) {
