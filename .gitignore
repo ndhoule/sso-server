@@ -1,0 +1,7 @@
+.DS_Store
+.tmp/
+tmp/
+api/environments/development.js
+api/migrations/
+api/ssl/
+node_modules/

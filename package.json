@@ -1,0 +1,43 @@
+{
+  "name": "sso-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "lab -pc"
+  },
+  "author": "Nathan Houle <nathan@nathanhoule.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^0.7.8",
+    "bell": "^1.0.2",
+    "bluebird": "^2.2.2",
+    "camelize": "^1.0.0",
+    "chalk": "^0.5.1",
+    "hapi": "^6.4.0",
+    "hapi-auth-basic": "^1.1.1",
+    "hapi-auth-jsonwebtoken": "^0.2.1",
+    "joi": "^4.6.2",
+    "jsonwebtoken": "^0.4.1",
+    "knex": "^0.6.22",
+    "kue": "^0.8.3",
+    "lab": "^3.2.3",
+    "lodash": "^2.4.1",
+    "moment": "^2.8.1",
+    "pg": "^3.4.0",
+    "ramda": "^0.2.4",
+    "require-directory": "^1.2.0",
+    "snakeize": "0.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-eslint": "^0.1.8",
+    "gulp-nodemon": "^1.0.4",
+    "gulp-notify": "^1.4.2",
+    "gulp-util": "^3.0.0",
+    "lab": "^3.2.1",
+    "mkdirp": "^0.5.0",
+    "optimist": "^0.6.1"
+  }
+}
