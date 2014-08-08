@@ -36,7 +36,7 @@ module.exports = function(server) {
     // The token, as stored in the database
     var record = {
       access_token: token,
-      expires_at: moment.unix(payload.exp).toDate(),
+      expires_at: moment(payload.exp).toDate(),
       user: payload.sub
     };
 
@@ -44,11 +44,14 @@ module.exports = function(server) {
       .insert(record)
       .then(function(result) {
         if (!result.rowCount) {
-          // TODO: Throw a database-specific error and log
-          return next(server.hapi.error.internal());
+          throw server.hapi.error.internal();
         }
 
-        next(null, { access_token: token, type: 'jwt' });
+        next(null, {
+          access_token: token,
+          expires_at: record.expires_at,
+          type: 'jwt'
+        });
       })
       .catch(next);
   });
