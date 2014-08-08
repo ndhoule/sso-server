@@ -22,13 +22,17 @@ module.exports = function(server) {
   });
 
   server.ext('onPreResponse', function(request, next) {
-    request.response.source = camelize(request.response.source);
+    if (request.response.variety === 'plain') {
+      request.response.source = camelize(request.response.source);
+    }
     next();
   });
 
   server.ext('onPostHandler', function(request, next) {
-    if (request.query.pretty) {
-      request.response.spaces(2);
+    if (request.response.variety === 'plain') {
+      if (request.query.pretty) {
+        request.response.spaces(2);
+      }
     }
     next();
   });
