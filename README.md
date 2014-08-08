@@ -41,11 +41,13 @@ TODO: Create and document Gulp task for running tests
 -->
 
 
+<!--
 ## Contributing
 
 TODO: Guidelines
 TODO: Style guide comment
 TODO: CONTRIBUTING.md
+-->
 
 
 ## License
